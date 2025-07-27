@@ -1,0 +1,23 @@
+FROM oven/bun:1
+
+WORKDIR /usr/src/app
+
+# build arg for build-time  :  --build-arg DATABASE_URL="postgres_url"
+ARG DATABASE_URL   
+# Copy root config and lockfiles
+COPY bun.lockb package.json turbo.json ./
+
+COPY ./packages ./packages
+
+# Copy only the frontend app (and shared packages if needed)
+COPY apps/web ./apps/web
+
+
+RUN bun install
+
+RUN bun run db:generate
+RUN DATABASE_URL=${DATABASE_URL} bun run build
+
+EXPOSE 3000
+
+CMD ["bun", "run", "start:web"]

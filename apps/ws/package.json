@@ -1,0 +1,12 @@
+{
+  "name": "ws",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "db" :"*",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

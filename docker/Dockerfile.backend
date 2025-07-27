@@ -1,0 +1,19 @@
+FROM oven/bun:1
+
+WORKDIR /usr/src/app
+
+#COPY package* ./   # can't able to as there are multiple package.json's
+#RUN bun install
+
+COPY bun.lockb package.json turbo.json ./
+
+COPY ./apps/backend ./apps/backend
+COPY ./packages ./packages
+
+RUN bun install
+# for prisma genrate : script
+RUN bun run db:generate
+
+EXPOSE 3002
+
+CMD ["bun", "run", "start:backend"]
