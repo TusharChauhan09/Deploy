@@ -148,7 +148,7 @@ prettier.config.*
 **/.env
 
 # Bun specific
-.bun
+
 
 # macOS
 .DS_Store
