@@ -29,3 +29,8 @@ jobs:
           push: true
           tags: tusharchauhan09/todo-app-backend:${{ github.sha }}
 ## step to deploy to this VM
+      - name: Delpoy to VM
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY_TODO }}" &> ~/ssh_key
+          chmod 700 /home/runner/ssh_key
+          ssh -o StrictHostKeyChecking=no -i ~/ssh_key root@http://172.208.66.191 -t "docker stop user_backend && docker run --name user_backend -d -p 3002:3002 tusharchauhan09/todo-app-backend${{ github.sha }}"
